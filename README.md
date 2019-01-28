@@ -71,6 +71,7 @@ options: DatepickerOptions = {
   addStyle: {}, // Optional, value to pass to [ngStyle] on the input field
   fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
   useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
+  blockDays: [] // 0 - Sunday and 1 - Saturday
 };
 ```
 

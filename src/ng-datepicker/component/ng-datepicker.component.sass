@@ -3,8 +3,10 @@ $background: $white
 $border: #DFE3E9
 $shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.08)
 $radius: 4px
-$text: #3D495C
+$textTitle: #3D495C
+$text: #47bc88
 $text-secondary: #A4A9B1
+$text-tertiary: #af2121
 $color: #1A91EB
 
 .ngx-datepicker-position-bottom-left
@@ -58,7 +60,7 @@ $color: #1A91EB
           fill: #CED0DA
 
       .topbar-title
-        color: $text
+        color: $textTitle
         font-size: 14px
         font-weight: 600
         cursor: pointer
@@ -99,6 +101,7 @@ $color: #1A91EB
           user-select: none
           border-radius: 50%
           color: $text
+          font-weight: bold;
 
           &.is-prev-month
             color: $text-secondary
@@ -110,6 +113,13 @@ $color: #1A91EB
           &.is-selected
             background: $color
             color: $white
+
+          &.is-notAvailable
+            cursor: not-allowed
+            color: $text-tertiary
+
+            &:hover
+              background: transparent
           
           &.is-disabled
             cursor: not-allowed

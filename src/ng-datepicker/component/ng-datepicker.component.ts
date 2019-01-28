@@ -44,6 +44,10 @@ export interface DatepickerOptions {
   fieldId?: string;
   /** If false, barTitleIfEmpty will be disregarded and a date will always be shown. Default: true */
   useEmptyBarTitle?: boolean;
+
+  blockDaysOfWeek: Array<number>;
+
+  blockDays: Array<string>;
 }
 
 // Counter for calculating the auto-incrementing field ID
@@ -76,7 +80,7 @@ export class NgDatepickerComponent implements ControlValueAccessor, OnInit, OnCh
   /**
    * Set datepicker's visibility state
    */
-  @Input() isOpened = false;
+  @Input() isOpened = true;
 
   /**
    * Datepicker dropdown position
@@ -109,6 +113,7 @@ export class NgDatepickerComponent implements ControlValueAccessor, OnInit, OnCh
     isToday: boolean;
     isSelected: boolean;
     isSelectable: boolean;
+    isAvailable: boolean;
   }[];
   locale: object;
   placeholder: string;
@@ -231,11 +236,32 @@ export class NgDatepickerComponent implements ControlValueAccessor, OnInit, OnCh
     const maxDateSet = !isNil(this.options.maxDate);
     const timestamp = date.valueOf();
 
+    if(this.options.blockDaysOfWeek.some(x => x === date.getDay())){
+      return false;
+    }
+
     if (minDateSet && (timestamp < this.options.minDate.valueOf())) {
       return false;
     }
 
     if (maxDateSet && (timestamp > this.options.maxDate.valueOf())) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Checks if specified date is in range of min and max dates
+   * @param date
+   */
+  private isAvailable(date: Date): boolean {
+    if (isNil(this.options)) {
+      return true;
+    }
+
+    var formatDate = date.toISOString().substring(0, 10);
+    if(this.options.blockDays.some(x => x === formatDate)){
       return false;
     }
 
@@ -257,7 +283,8 @@ export class NgDatepickerComponent implements ControlValueAccessor, OnInit, OnCh
         inThisMonth: true,
         isToday: isToday(date),
         isSelected: isSameDay(date, this.innerValue) && isSameMonth(date, this.innerValue) && isSameYear(date, this.innerValue),
-        isSelectable: this.isDateSelectable(date)
+        isSelectable: this.isDateSelectable(date),
+        isAvailable: this.isAvailable(date)
       };
     });
 
@@ -274,7 +301,8 @@ export class NgDatepickerComponent implements ControlValueAccessor, OnInit, OnCh
         inThisMonth: false,
         isToday: isToday(date),
         isSelected: isSameDay(date, this.innerValue) && isSameMonth(date, this.innerValue) && isSameYear(date, this.innerValue),
-        isSelectable: this.isDateSelectable(date)
+        isSelectable: this.isDateSelectable(date),
+        isAvailable: this.isAvailable(date)
       });
     }
 
