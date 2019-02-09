@@ -1,16 +1,17 @@
 {
   "name": "ng2-datepicker",
-  "version": "3.1.1",
+  "version": "1.7.1",
   "main": "./dist/bundles/ng2-datepicker.umd.js",
   "module": "./dist/ng2-datepicker.es5.js",
   "es2015": "./dist/ng2-datepicker.js",
   "typings": "./dist/ng2-datepicker.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bleenco/ng2-datepicker.git"
+    "url": "git+https://github.com/gfiury/ng2-datepicker.git"
   },
   "authors": [
-    "Jan Kuri <jan@bleenco.com>"
+    "Jan Kuri <jan@bleenco.com>",
+    "Guillermo Vilas"
   ],
   "license": "MIT",
   "bugs": {
